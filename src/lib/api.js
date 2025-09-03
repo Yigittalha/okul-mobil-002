@@ -15,7 +15,6 @@ const api = axios.create({
 
 // Helper function to get upload URL for photos
 export const getUploadUrl = (filename) => {
-  console.log("getUploadUrl called with filename:", filename);
 
   // Geçerli bir dosya adı kontrolü
   if (!filename || typeof filename !== "string" || filename.trim() === "") {
@@ -67,8 +66,6 @@ export const getUploadUrl = (filename) => {
       : `${uploadBaseUrl}/`;
     const fullUrl = `${baseUrlWithSlash}${cleanFilename}`;
 
-    console.log("Full Photo URL:", fullUrl);
-    console.log("Generated Photo URL:", fullUrl);
 
     return fullUrl;
   } catch (error) {
@@ -231,16 +228,7 @@ export const fetchAllStudents = async (showErrors = false) => {
     if (response.data && Array.isArray(response.data)) {
       console.log(`📋 Received ${response.data.length} students data`);
 
-      // Log photo information for debugging
-      response.data.forEach((student, index) => {
-        if (student && student.Fotograf) {
-          console.log(
-            `📸 Student ${index + 1} (${student.AdSoyad}) photo: ${student.Fotograf}`,
-          );
-        } else {
-          console.log(`⚠️ Student ${index + 1} has no photo data`);
-        }
-      });
+        
 
       return response.data;
     } else {

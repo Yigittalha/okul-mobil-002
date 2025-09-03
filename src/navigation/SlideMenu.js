@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
+import { Animated as RNAnimated } from "react-native";
 import {
   View,
   Text,
@@ -27,11 +28,22 @@ export default function SlideMenu() {
   const { theme, isDark } = useTheme();
   const navigation = useNavigation();
   const { menuVisible, closeMenu } = useSlideMenu();
+  const slideAnim = useRef(new RNAnimated.Value(-280)).current; // menü genişliği kadar negatif değer
 
   // Screen dimensions for responsive design
   const { height } = Dimensions.get("window");
   const MAX_LIST_HEIGHT = Math.floor(height * 0.6); // 60% of screen
   const isSmallScreen = height < 700;
+
+  // Menü görünürlüğü değiştiğinde animasyonu başlat
+  useEffect(() => {
+    RNAnimated.spring(slideAnim, {
+      toValue: menuVisible ? 0 : -280,
+      useNativeDriver: true,
+      friction: 8,
+      tension: 65,
+    }).start();
+  }, [menuVisible]);
 
   // Accordion state for expanded categories
   const [expandedCategories, setExpandedCategories] = useState(new Set());
@@ -250,16 +262,23 @@ export default function SlideMenu() {
 
   return (
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={menuVisible}
       onRequestClose={closeMenu}
     >
       <View style={styles.modalOverlay}>
-        <SafeAreaView
-          style={[styles.slideMenu, { backgroundColor: theme.background }]}
+        <RNAnimated.View
+          style={[
+            styles.slideMenu,
+            {
+              backgroundColor: theme.background,
+              transform: [{ translateX: slideAnim }],
+            },
+          ]}
         >
-          <View
+          <SafeAreaView style={{ flex: 1 }}>
+            <View
             style={[styles.menuHeader, { borderBottomColor: theme.border }]}
           >
             <TouchableOpacity
@@ -339,7 +358,8 @@ export default function SlideMenu() {
               </Text>
             </TouchableOpacity>
           </View>
-        </SafeAreaView>
+          </SafeAreaView>
+        </RNAnimated.View>
 
         <TouchableOpacity
           style={styles.modalBackground}

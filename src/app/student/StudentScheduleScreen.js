@@ -346,6 +346,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    minHeight: 32,
   },
   
   // Teacher Styles
@@ -353,6 +354,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
+    marginRight: 8,
   },
   teacherIcon: {
     fontSize: 16,
@@ -361,6 +363,7 @@ const styles = StyleSheet.create({
   teacherName: {
     fontSize: 14,
     fontWeight: '500',
+    flexShrink: 1,
   },
   
   // Room Badge Styles
@@ -370,7 +373,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,
-    marginLeft: 8,
+    flexShrink: 0,
   },
   roomIcon: {
     fontSize: 12,
