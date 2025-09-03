@@ -7,7 +7,7 @@ import {
 } from "./storage";
 
 // API URL'yi environment'dan al
-const API_BASE_URL = process.env.EXPO_PUBLIC_API || "https://a9014df2c6f4.ngrok-free.app/api";
+const API_BASE_URL = process.env.EXPO_PUBLIC_API || "https://ahuiho.okulpanel.com/api";
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -58,7 +58,7 @@ export const getUploadUrl = (filename) => {
   // API'den gerçek fotoğraf URL'sini oluştur
   try {
     // API URL'yi environment'dan al
-    const uploadBaseUrl = process.env.EXPO_PUBLIC_FOTO_API || "https://a9014df2c6f4.ngrok-free.app/uploads";
+    const uploadBaseUrl = process.env.EXPO_PUBLIC_FOTO_API || "https://ahuiho.okulpanel.com/uploads";
 
     // URL sonunda slash olup olmadığını kontrol et
     const baseUrlWithSlash = uploadBaseUrl.endsWith("/")
